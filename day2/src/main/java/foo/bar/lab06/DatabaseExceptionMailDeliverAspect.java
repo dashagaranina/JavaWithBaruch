@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseExceptionMailDeliverAspect {
     @AfterThrowing(
-            pointcut = "execution(* *.*(..))",
+//            pointcut = "execution(* *.*(..))",
+              pointcut = "within(@org.springframework.stereotype.Repository *)*",
             throwing= "error")
     public void sendMailAfterThrowing(JoinPoint joinPoint, DatabaseException error) {
 
