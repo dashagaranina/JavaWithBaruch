@@ -19,6 +19,7 @@ public class EventRegistrationTest {
 
     @Test
     public void registrationAndFindAllTest(){
+        eventService.run();
         String name = "Dasha";
         eventService.registration(name);
         Guest guest = eventService.findGuestByName(name);

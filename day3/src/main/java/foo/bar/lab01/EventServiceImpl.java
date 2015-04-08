@@ -29,4 +29,8 @@ public class EventServiceImpl implements EventService {
     public Guest findGuestByName(String name) {
         return eventRepository.findByName(name);
     }
+
+    public void run(){
+        eventRepository.run();
+    }
 }

@@ -11,4 +11,5 @@ public interface EventRepository {
     List<Event> getEvents();
     List<Guest> getGuests();
     Guest findByName(String name);
+    void run ();
 }

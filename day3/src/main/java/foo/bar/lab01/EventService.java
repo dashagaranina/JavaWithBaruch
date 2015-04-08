@@ -6,4 +6,5 @@ public interface EventService {
     void registration(String name);
     List<Guest> getGuests();
     Guest findGuestByName(String name);
+    void run();
 }

@@ -31,6 +31,8 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public Event getEvent(Long id) {
+        init();
+
         String query = "SELECT * FROM EVENT WHERE ID = ?";
         jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate.queryForObject(
@@ -49,6 +51,8 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public List<Guest> getGuests() {
+        init();
+
         String query = "SELECT * FROM GUEST";
         List<Guest> guests = new ArrayList<>();
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
@@ -64,6 +68,8 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public Guest findByName(String name) {
+        init();
+
         String query = "SELECT * FROM GUEST WHERE NAME = ?";
         jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate.queryForObject(
@@ -76,25 +82,19 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public void run(String... strings) throws Exception {
+    public void run() {
+        init();
+
         System.out.println("Creating tables");
         jdbcTemplate.execute("drop table guest if exists");
+        jdbcTemplate.execute("drop table event if exists");
+        jdbcTemplate.execute("drop table orders if exists");
         jdbcTemplate.execute("create table guest(" +
                 "id uuid, name varchar(255)");
+        jdbcTemplate.execute("create table event(" +
+                "id uuid, name varchar(255), address varchar(255)");
+        jdbcTemplate.execute("create table orders(" +
+                "id uuid, name varchar(255), description varchar(255)");
 
-        System.out.println("Querying for customer records where first_name = 'Josh':");
-        List<Customer> results = jdbcTemplate.query(
-                "select id, first_name, last_name from guest where first_name = ?", new Object[] { "Josh" },
-                new RowMapper<Customer>() {
-                    @Override
-                    public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return new Customer(rs.getLong("id"), rs.getString("first_name"),
-                                rs.getString("last_name"));
-                    }
-                });
-
-        for (Guest customer : results) {
-            System.out.println(customer);
-        }
     }
 }
