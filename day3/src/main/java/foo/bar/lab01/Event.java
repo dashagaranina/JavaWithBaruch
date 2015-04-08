@@ -6,7 +6,6 @@ public class Event {
     Long id;
     String name;
     String address;
-    List<Order> orders;
     List<Guest> guests;
 
     public List<Guest> getGuests() {
@@ -15,14 +14,6 @@ public class Event {
 
     public void setGuests(List<Guest> guests) {
         this.guests = guests;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
     public Long getId() {

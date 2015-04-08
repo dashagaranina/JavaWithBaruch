@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class EventServiceImpl implements EventService {
+public class SomeServiceImpl implements SomeService {
 
     @Autowired
-    private EventRepository eventRepository;
+    private SomeRepository eventRepository;
 
     @Override
     public void registration(String name) {
@@ -33,4 +33,10 @@ public class EventServiceImpl implements EventService {
     public void run(){
         eventRepository.run();
     }
+
+    @Override
+    public void createEvent(Event event) {
+
+    }
+
 }

@@ -1,7 +1,7 @@
 package lab01;
 
 import foo.bar.lab01.AppConfig;
-import foo.bar.lab01.EventService;
+import foo.bar.lab01.SomeService;
 import foo.bar.lab01.Guest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class EventRegistrationTest {
 
     @Autowired
-    private EventService eventService;
+    private SomeService eventService;
 
     @Test
     public void registrationAndFindAllTest(){
@@ -24,6 +24,8 @@ public class EventRegistrationTest {
         eventService.registration(name);
         Guest guest = eventService.findGuestByName(name);
         Assert.assertEquals(name, guest.getName());
+        System.out.println("Guest created successfully");
         Assert.assertEquals(guest.getId(), eventService.getGuests().get(0).getId());
+        System.out.println("Tests completed");
     }
 }

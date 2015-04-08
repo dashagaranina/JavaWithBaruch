@@ -5,11 +5,12 @@ import java.util.List;
 /**
  * Created by Dasha on 08.04.2015.
  */
-public interface EventRepository {
+public interface SomeRepository {
     void saveGuest(Guest guest);
     Event getEvent(Long id);
     List<Event> getEvents();
     List<Guest> getGuests();
     Guest findByName(String name);
     void run ();
+    void saveEvent(Event event);
 }

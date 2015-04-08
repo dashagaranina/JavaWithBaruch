@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Repository
-public class EventRepositoryImpl implements EventRepository {
+public class SomeRepositoryImpl implements SomeRepository {
 
     @Autowired
     private DataSource dataSource;
@@ -24,7 +24,7 @@ public class EventRepositoryImpl implements EventRepository {
     @Override
     public void saveGuest(Guest guest) {
         init();
-        String query = "insert into guest (id, name) values (? , ?)";
+        String query = "insert into guest (id, g_name) values (? , ?)";
         jdbcTemplate.update(query, guest.getId(),
                 guest.getName());
     }
@@ -39,7 +39,7 @@ public class EventRepositoryImpl implements EventRepository {
                 query, new Object[]{id}, (rs, rowNum) -> {
                     Event event1 = new Event();
                     event1.setId(rs.getLong("ID"));
-                    event1.setName(rs.getString("NAME"));
+                    event1.setName(rs.getString("E_NAME"));
                     return event1;
                 });
     }
@@ -59,7 +59,7 @@ public class EventRepositoryImpl implements EventRepository {
         for (Map row : rows) {
             Guest guest = new Guest();
             guest.setId(UUID.fromString(String.valueOf(row.get("ID"))));
-            guest.setName((String) row.get("NAME"));
+            guest.setName((String) row.get("G_NAME"));
             guests.add(guest);
         }
         return guests;
@@ -70,13 +70,13 @@ public class EventRepositoryImpl implements EventRepository {
     public Guest findByName(String name) {
         init();
 
-        String query = "SELECT * FROM GUEST WHERE NAME = ?";
+        String query = "SELECT * FROM GUEST WHERE G_NAME = ?";
         jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate.queryForObject(
                 query, new Object[]{name}, (rs, rowNum) -> {
                     Guest guest = new Guest();
                     guest.setId(UUID.fromString(rs.getString("ID")));
-                    guest.setName(rs.getString("NAME"));
+                    guest.setName(rs.getString("G_NAME"));
                     return guest;
                 });
     }
@@ -90,11 +90,21 @@ public class EventRepositoryImpl implements EventRepository {
         jdbcTemplate.execute("drop table event if exists");
         jdbcTemplate.execute("drop table orders if exists");
         jdbcTemplate.execute("create table guest(" +
-                "id uuid, name varchar(255)");
+                "id uuid, g_name varchar(255))");
         jdbcTemplate.execute("create table event(" +
-                "id uuid, name varchar(255), address varchar(255)");
+                "id uuid, e_name varchar(255), address varchar(255))");
         jdbcTemplate.execute("create table orders(" +
-                "id uuid, name varchar(255), description varchar(255)");
+                "id uuid, o_name varchar(255), description varchar(255))");
+        System.out.println("Tables created successfully");
+        System.out.println("**********");
 
+    }
+
+    @Override
+    public void saveEvent(Event event) {
+        init();
+        String query = "insert into event (id, e_name) values (? , ?)";
+        jdbcTemplate.update(query, event.getId(),
+                event.getName());
     }
 }
