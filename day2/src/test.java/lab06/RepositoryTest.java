@@ -1,3 +1,5 @@
+package lab06;
+
 import foo.bar.lab06.AppConfig;
 import foo.bar.lab06.DatabaseException;
 import foo.bar.lab06.Repository;
