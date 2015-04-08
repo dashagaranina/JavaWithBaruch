@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseExceptionMailDeliverAspect {
     @AfterThrowing(
-            pointcut = "execution(* RepositoryImpl.persistMessage(..))",
+            pointcut = "execution(* *.*(..))",
             throwing= "error")
     public void sendMailAfterThrowing(JoinPoint joinPoint, DatabaseException error) {
 
